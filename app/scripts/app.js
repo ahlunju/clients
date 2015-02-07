@@ -23,6 +23,10 @@ angular
       //   templateUrl: 'views/main.html',
       //   controller: 'MainCtrl'
       // })
+      // .when('/about', {
+      //   templateUrl: 'views/about.html',
+      //   controller: 'AboutCtrl'
+      // })
       .when('/', {
         templateUrl: 'views/clients.html',
         controller: 'ClientsCtrl'
@@ -33,15 +37,11 @@ angular
       })
       .when('/add', {
         templateUrl: 'views/addclient.html',
-        controller: 'AddClientCtrl'
+        controller: 'AddclientCtrl'
       })
       .when('/edit', {
         templateUrl: 'views/editclient.html',
-        controller: 'EditClientCtrl'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
+        controller: 'EditclientCtrl'
       })
       .otherwise({
         redirectTo: '/'

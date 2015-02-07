@@ -8,10 +8,12 @@
  * Controller of the clientsApp
  */
 angular.module('clientsApp')
-  .controller('ClientsCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('ClientsCtrl', function ($scope, Clientsservice) {
+    var promise = Clientsservice.getClients();
+    promise.then(function(payload) {
+        $scope.clients = payload;
+        console.log($scope.clients);
+    }, function(error) {
+        $log.error('something went wrong...');
+    });
   });
