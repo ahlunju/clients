@@ -15,7 +15,8 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'LocalStorageModule'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -39,7 +40,7 @@ angular
         templateUrl: 'views/addclient.html',
         controller: 'AddclientCtrl'
       })
-      .when('/edit', {
+      .when('/edit/:id', {
         templateUrl: 'views/editclient.html',
         controller: 'EditclientCtrl'
       })

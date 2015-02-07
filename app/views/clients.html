@@ -1,1 +1,16 @@
-<p>This is the clients view.</p>
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>default</th>
+    </tr>
+    <tr ng-repeat="client in clients" ng-click="editClient(client.id)">
+        <td>{{client.id}}</td>
+        <td>{{client.name}}</td>
+        <td>{{client.description}}</td>
+        <td>{{client.type}}</td>
+        <td>{{client.isDefault}}</td>
+    </tr>
+</table>
