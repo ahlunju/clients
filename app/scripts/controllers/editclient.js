@@ -8,7 +8,7 @@
  * Controller of the clientsApp
  */
 angular.module('clientsApp')
-  .controller('EditclientCtrl', function ($scope, $location, Clientsservice, $routeParams) {
+  .controller('EditclientCtrl', function ($scope, $location, Clientsservice, $routeParams, $rootScope) {
     $scope.clientId = parseInt($routeParams.clientId, 10);
     $scope.client = Clientsservice.get($scope.clientId);
     $scope.types = [{

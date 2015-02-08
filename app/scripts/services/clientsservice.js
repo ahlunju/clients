@@ -8,7 +8,7 @@
  * Service in the clientsApp.
  */
 angular.module('clientsApp')
-  .service('Clientsservice', function ($q, $http, $rootScope, localStorageService) {
+  .service('Clientsservice', function ($q, $http, $rootScope, localStorageService, $location) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     this.getClients = function() {
@@ -26,6 +26,10 @@ angular.module('clientsApp')
     };
 
     this.get = function(id) {
+        $rootScope.clients = $rootScope.clients || localStorageService.get('clients');
+        if (!$rootScope.clients) {
+            $location.path('#/');
+        }
         for (var i = 0 ; i < $rootScope.clients.length; i++) {
             if ($rootScope.clients[i].id === id) {
                 return $rootScope.clients[i];
