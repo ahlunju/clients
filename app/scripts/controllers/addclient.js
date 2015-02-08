@@ -8,21 +8,28 @@
  * Controller of the clientsApp
  */
 angular.module('clientsApp')
-  .controller('AddclientCtrl', function ($scope, $rootScope, $location) {
-    $scope.name = '';
-    $scope.description = '';
+  .controller('AddclientCtrl', function ($scope, $rootScope, $location, Clientsservice) {
+    $scope.client = {
+        name : '',
+        description : ''
+    }
+
+    $scope.types = [{
+        value : 'TRADING'
+    }, {
+        value : 'IA'
+    }];
+
     $scope.isDefault = false;
-    $scope.type = 'IA';
+    $scope.selectedType = $scope.types[0];
+
     $scope.save = function() {
         console.log('saved');
-        $rootScope.clients.push({
-            id : $rootScope.clients.length + 1,
-            name : $scope.name,
-            description : $scope.description,
-            isDefault : $scope.isDefault,
-            type : $scope.type
-        });
-        console.log($rootScope.clients);
+        $scope.client.id = $rootScope.clients.length + 1;
+        $scope.client.isDefault = $scope.isDefault ? 'Y' : 'N';
+        $scope.client.type = $scope.selectedType.value;
+        $rootScope.clients.push($scope.client);
+        Clientsservice.set($rootScope.clients);
         $location.path('#/');
     };
   });

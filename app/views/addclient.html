@@ -1,22 +1,28 @@
-<form name="new-client-form" ng-submit="save()">
+<form name="newClientForm" ng-submit="save()">
     <div class="form-group">
         <label for="name">Name</label>
         <div>
-            <input type="text" name="name" ng-model="name" required/>
+            <input class="form-control" type="text" name="name" ng-model="client.name" required/>
         </div>
     </div>
     <div class="form-group">
-        <label for="description">Description</label>
-        <div>
-            <input type="text" name="description" ng-model="description" required/>
+        <label class="" for="description">Description</label>
+        <div class="">
+            <input class="form-control" type="text" name="description" ng-model="client.description" required/>
         </div>
     </div>
     <div class="form-group">
         <label for="type">Type</label>
-
+        <select class="form-control"ng-model="selectedType" ng-options="type.value for type in types">
+        </select>
+    </div>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" ng-model="isDefault" name="default" /> Default
+        </label>
     </div>
     <div class="form-group">
         <a href="#/" class="btn">Cancel</a>
-        <input type="submit" value="Create" class="btn btn-primary">
+        <input type="submit" value="Create" class="btn btn-primary" ng-disabled="newClientForm.$invalid">
     </div>
 </form>

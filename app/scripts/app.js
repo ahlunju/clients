@@ -18,7 +18,10 @@ angular
     'ngTouch',
     'LocalStorageModule'
   ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider, localStorageServiceProvider) {
+    localStorageServiceProvider
+      .setPrefix('client-app')
+      .setNotify(true, true); //setItem, removeItem
     $routeProvider
       // .when('/', {
       //   templateUrl: 'views/main.html',
@@ -40,7 +43,7 @@ angular
         templateUrl: 'views/addclient.html',
         controller: 'AddclientCtrl'
       })
-      .when('/edit/:id', {
+      .when('/edit/:clientId', {
         templateUrl: 'views/editclient.html',
         controller: 'EditclientCtrl'
       })
