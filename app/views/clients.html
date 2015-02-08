@@ -1,12 +1,12 @@
 <table class="table table-hover table-striped">
     <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Type</th>
-        <th>default</th>
+        <th><a href="" ng-click="orderByField='id'; reverse = !reverse">Id</a></th>
+        <th><a href="" ng-click="orderByField='name'; reverse = !reverse">Name</a></th>
+        <th><a href="" ng-click="orderByField='description'; reverse = !reverse">Description</a></th>
+        <th><a href="" ng-click="orderByField='type'; reverse = !reverse">Type</a></th>
+        <th><a href="" ng-click="orderByField='isDefault'; reverse = !reverse">default</a></th>
     </tr>
-    <tr ng-repeat="client in clients" ng-click="editClient(client.id)">
+    <tr ng-repeat="client in clients | orderBy:orderByField:reverse" ng-click="editClient(client.id)">
         <td>{{client.id}}</td>
         <td>{{client.name}}</td>
         <td>{{client.description}}</td>

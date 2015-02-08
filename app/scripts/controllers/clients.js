@@ -27,4 +27,6 @@ angular.module('clientsApp')
     $scope.editClient = function(id) {
         $location.path('edit/'+id);
     }
+
+    $scope.orderByField = 'id';
   });
