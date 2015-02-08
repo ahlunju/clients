@@ -26,15 +26,22 @@ angular.module('clientsApp')
     
     $scope.editClient = function(id) {
       $location.path('edit/'+id);
-    }
-    
+    };
+
+    $scope.displayAllItems = function() {
+        if (!$scope.searchKey) {
+          $scope.itemPerPage = 10;
+        } else {
+          $scope.itemPerPage = $scope.totalItems;
+        }
+    };
+
     $scope.$watch('[currentPage, itemPerPage]', function() {
       $scope.begin = ($scope.currentPage - 1) * $scope.itemPerPage;
       $scope.end = $scope.begin + $scope.itemPerPage;
       $scope.filteredClients = $rootScope.clients.slice($scope.begin, $scope.end);
     });
 
-    
     $scope.orderByField = 'id';
     $scope.totalItems = $rootScope.clients.length;
     $scope.currentPage = 1;

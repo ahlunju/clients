@@ -8,7 +8,7 @@
 </div>
 <hr>
 <div class="form-group">
-<label>Search</label> <input class="form-control" type="text" ng-model="searchKey"/>
+<label>Search</label> <input class="form-control" type="text" ng-model="searchKey" ng-change="displayAllItems()"/>
 </div>
 <table class="table table-hover table-striped">
 	<tr>
@@ -26,4 +26,4 @@
 		<td>{{client.isDefault}}</td>
 	</tr>
 </table>
-<pagination total-items="totalItems" num-page="numPage" ng-model="currentPage" max-size="maxSize" items-per-page="itemPerPage" class="pagination-md pull-right" boundary-links="true"></pagination>
+<pagination ng-hide="itemPerPage==totalItems" total-items="totalItems" num-page="numPage" ng-model="currentPage" max-size="maxSize" items-per-page="itemPerPage" class="pagination-md pull-right" boundary-links="true"></pagination>
