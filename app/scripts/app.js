@@ -16,7 +16,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'ui.bootstrap'
   ])
   .config(function ($routeProvider, localStorageServiceProvider) {
     localStorageServiceProvider
