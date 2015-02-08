@@ -28,6 +28,7 @@ angular.module('clientsApp')
         $scope.client.id = $rootScope.clients.length + 1;
         $scope.client.isDefault = $scope.isDefault ? 'Y' : 'N';
         $scope.client.type = $scope.selectedType.value;
+        
         $rootScope.clients.push($scope.client);
         Clientsservice.set($rootScope.clients);
         $location.path('#/');

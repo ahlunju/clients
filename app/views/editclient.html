@@ -1,29 +1,29 @@
-<form name="new-client-form" ng-submit="update()">
+<form name="newClientForm" ng-submit="update()">
     <div class="form-group">
         <label for="name">Name</label>
         <div>
-            <input type="text" name="name" ng-model="client.name" required/>
+            <input class="form-control" type="text" name="name" ng-model="client.name" required/>
         </div>
     </div>
     <div class="form-group">
-        <label for="description">Description</label>
-        <div>
-            <input type="text" name="description" ng-model="client.description" required/>
+        <label class="" for="description">Description</label>
+        <div class="">
+            <input class="form-control" type="text" name="description" ng-model="client.description" required/>
         </div>
     </div>
     <div class="form-group">
         <label for="type">Type</label>
-        <select ng-options="item.subItem as item.label for item in values track by item.id" ng-model="selected">
-
-        
+        <select class="form-control"ng-model="selectedType" ng-options="type.value for type in types">
+        </select>
     </div>
-    <div class="form-group">
-        <label for="default">Default</label>
-        <input name="default" type="checkbox">
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" ng-model="isDefault" name="default" /> Default
+        </label>
     </div>
     <div class="form-group">
         <a href="#/" class="btn">Cancel</a>
         <a class="btn btn-warning" ng-click="delete()">Delete</a>
-        <input type="submit" value="Update" class="btn btn-primary">
+        <input type="submit" value="Update" class="btn btn-primary" ng-disabled="newClientForm.$invalid">
     </div>
 </form>
