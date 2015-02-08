@@ -39,6 +39,5 @@ angular.module('clientsApp')
     $scope.totalItems = $rootScope.clients.length;
     $scope.currentPage = 1;
     $scope.numPage = Math.ceil($rootScope.clients.length / $scope.itemPerPage);
-    $scope.itemPerPage = 3;
-
+    $scope.itemPerPage = 10;
   });

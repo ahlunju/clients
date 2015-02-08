@@ -1,5 +1,13 @@
 <div class="form-group">
-	
+	<label for="">Item Per Page </label>
+	<div class="btn-group">
+		<label class="btn btn-primary" ng-model="itemPerPage" btn-radio="10">10</label>
+		<label class="btn btn-primary" ng-model="itemPerPage" btn-radio="20">20</label>
+		<label class="btn btn-primary" ng-model="itemPerPage" btn-radio="totalItems">&#8734;</label>
+		</div>
+</div>
+<hr>
+<div class="form-group">
 <label>Search</label> <input class="form-control" type="text" ng-model="searchKey"/>
 </div>
 <table class="table table-hover table-striped">
@@ -18,6 +26,4 @@
 		<td>{{client.isDefault}}</td>
 	</tr>
 </table>
-{{currentPage}}
-{{itemPerPage}}
 <pagination total-items="totalItems" num-page="numPage" ng-model="currentPage" max-size="maxSize" items-per-page="itemPerPage" class="pagination-md pull-right" boundary-links="true"></pagination>
