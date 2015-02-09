@@ -8,19 +8,44 @@
  * Controller of the clientsApp
  */
 angular.module('clientsApp')
-  .controller('EditclientCtrl', function ($scope, $location, Clientsservice, $routeParams, $rootScope) {
+  .controller('EditclientCtrl', function ($rootScope, $scope, $location, Clientsservice, $routeParams) {
+
     $scope.clientId = parseInt($routeParams.clientId, 10);
-    $scope.client = Clientsservice.get($scope.clientId);
+
     $scope.types = [{
         value : 'TRADING'
     }, {
         value : 'IA'
     }];
-    $scope.isDefault = $scope.client.isDefault === 'Y' ? true : false;
 
-    for (var i = 0; i < $scope.types.length; i++) {
-      if ($scope.types[i].value === $scope.client.type) {
-        $scope.selectedType = $scope.types[i];
+    if (!$rootScope.clients) { //if somehow user got to this page before the service is called...
+      var promise = Clientsservice.get($scope.clientId);
+      promise.then(function(payload) {
+        $scope.client = payload;
+
+        $scope.isDefault = $scope.client.isDefault === 'Y' ? true : false;
+
+        for (var i = 0; i < $scope.types.length; i++) {
+          if ($scope.types[i].value === $scope.client.type) {
+            $scope.selectedType = $scope.types[i];
+            break;
+          }
+        }
+      });
+    } else {
+      for (var i = 0; i< $rootScope.clients.length; i++) {
+        if ($rootScope.clients[i].id === $scope.clientId) {
+          $scope.client = $rootScope.clients[i];
+          $scope.isDefault = $scope.client.isDefault === 'Y' ? true : false;
+          break;
+        }
+      }
+
+      for (var i = 0; i < $scope.types.length; i++) {
+        if ($scope.types[i].value === $scope.client.type) {
+          $scope.selectedType = $scope.types[i];
+          break;
+        }
       }
     }
 

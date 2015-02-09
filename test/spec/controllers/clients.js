@@ -4,7 +4,7 @@ describe('Controller: ClientsCtrl', function () {
 
   // load the controller's module
   beforeEach(function() {
-    module('clientsApp')
+    module('clientsApp');
 
 
   });

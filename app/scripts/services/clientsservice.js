@@ -36,15 +36,18 @@ angular.module('clientsApp')
     };
 
     this.get = function(id) {
-        $rootScope.clients = $rootScope.clients || localStorageService.get('clients');
-        if (!$rootScope.clients) {
-            $location.path('#/');
-        }
-        for (var i = 0 ; i < $rootScope.clients.length; i++) {
-            if ($rootScope.clients[i].id === id) {
-                return $rootScope.clients[i];
+        var deferred = $q.defer();
+        $timeout(function() {
+            var storage = localStorageService.get('clients');
+            for (var i = 0 ; i < storage.length; i++) {
+                if (storage[i].id === id) {
+                    deferred.resolve(storage[i]);
+                    break;
+                }
             }
-        }
+            console.log('got client id:', id);
+        }, Math.random()*1000);
+        return deferred.promise;
     };
 
     this.set = function(arr) {
@@ -52,6 +55,7 @@ angular.module('clientsApp')
     };
 
     this.update = function(id, obj) {
+        
         var client = this.get(id);
         client.description = obj.description;
         client.type = obj.type;
@@ -61,10 +65,11 @@ angular.module('clientsApp')
     };
 
     this.delete = function(id) {
-        for (var i = 0; i< $rootScope.clients.length; i++) {
-            if ($rootScope.clients[i].id === id ) {
-                $rootScope.clients.splice(i, 1);
-                this.set($rootScope.clients);
+        var storage = localStorageService.get('clients');
+        for (var i = 0; i< storage.length; i++) {
+            if (storage[i].id === id ) {
+                storage.splice(i, 1);
+                this.set(storage);
                 return;
             }
         }
