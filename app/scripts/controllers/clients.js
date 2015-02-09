@@ -14,8 +14,8 @@ angular.module('clientsApp')
     $scope.currentPage = 1;
     $scope.itemPerPage = 10;
 
-    var promise = Clientsservice.getClients();
-    promise.then(function(payload) {
+    $scope.promise = Clientsservice.getClients();
+    $scope.promise.then(function(payload) {
       $rootScope.clients = payload;
       $scope.totalItems = $rootScope.clients.length;
       $scope.numPage = Math.ceil($rootScope.clients.length / $scope.itemPerPage);
