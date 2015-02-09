@@ -4,7 +4,10 @@
 		<label class="btn btn-primary" ng-model="itemPerPage" btn-radio="10">10</label>
 		<label class="btn btn-primary" ng-model="itemPerPage" btn-radio="20">20</label>
 		<label class="btn btn-primary" ng-model="itemPerPage" btn-radio="totalItems">&#8734;</label>
-		</div>
+	</div>
+	<div class="pull-right">
+	total clients: {{totalItems}}
+	</div>
 </div>
 <hr>
 <div class="form-group">
@@ -26,4 +29,5 @@
 		<td>{{client.isDefault}}</td>
 	</tr>
 </table>
+
 <pagination ng-hide="itemPerPage==totalItems" total-items="totalItems" num-page="numPage" ng-model="currentPage" max-size="maxSize" items-per-page="itemPerPage" class="pagination-md pull-right" boundary-links="true"></pagination>
