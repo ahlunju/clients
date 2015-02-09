@@ -74,4 +74,8 @@ angular.module('clientsApp')
             }
         }
     };
+
+    this.clearLocalStorage = function() {
+        localStorageService.clearAll();
+    };
   });

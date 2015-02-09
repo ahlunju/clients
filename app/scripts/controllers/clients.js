@@ -38,4 +38,46 @@ angular.module('clientsApp')
           $scope.itemPerPage = $scope.totalItems;
         }
     };
+
+    $scope.clearLS = function() {
+      Clientsservice.clearLocalStorage();
+    };
+    
+    $scope.filteredKeyword = '';
+    $scope.search = {
+      'id': '',
+      'name': '',
+      'description': '',
+      'type': '',
+      'isDefault': '',
+      '$': ''
+    };
+    $scope.advancedFilter = function() {
+      var filter = $scope.searchKey.match(/[^:]*/i)[0];
+      var filterKeyword = $scope.searchKey.match(/:(.*)/i);
+      if(!filterKeyword) {
+        $scope.search['$'] = $scope.searchKey;
+      } else {
+        $scope.search['$'] = '';
+        switch(filter){
+          case 'id':
+            $scope.search.id = filterKeyword[1];
+            break;
+          case 'name':
+            $scope.search.name = filterKeyword[1];
+            break;
+          case 'description':
+            $scope.search.description = filterKeyword[1];
+            break;
+          case 'type':
+            $scope.search.type = filterKeyword[1];
+            break;
+          case 'default':
+            $scope.search['isDefault'] = filterKeyword[1];
+            break;
+          default:
+            $scope.search['$'] = $scope.searchKey;
+        }
+      }
+    }
   });
