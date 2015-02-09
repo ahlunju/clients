@@ -21,8 +21,8 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
-  grunt.loadNpmTasks('grunt-karma');
-  
+  // grunt.loadNpmTasks('grunt-karma');
+
   // Define the configuration for all the tasks
   grunt.initConfig({
 
@@ -370,7 +370,6 @@ module.exports = function (grunt) {
     // Test settings
     karma: {
       unit: {
-        // configFile: 'test/karma.conf.js',
         configFile: 'karma.conf.js',
         singleRun: true
       }

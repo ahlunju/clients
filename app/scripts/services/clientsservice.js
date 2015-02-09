@@ -8,20 +8,30 @@
  * Service in the clientsApp.
  */
 angular.module('clientsApp')
-  .service('Clientsservice', function ($q, $http, $rootScope, localStorageService, $location) {
+  .service('Clientsservice', function ($q, $http, $rootScope, localStorageService, $location, $timeout) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     this.getClients = function() {
         var deferred = $q.defer();
 
-        $http.get('/data/clients.json').success( function(data, status, headers, config) {
-            deferred.resolve(data);
-            return data;
-        }).
-        error(function(data, status, headers, config) {
-            console.error(status);
-            deferred.reject(status);
-        });
+        if(localStorageService.get('clients')) {
+            deferred.resolve(localStorageService.get('clients'));
+            console.log('got clients from localstorage...');
+
+        } else {
+            $timeout(function() {
+                $http.get('/data/clients.json').success( function(data, status, headers, config) {
+                    deferred.resolve(data);
+                    localStorageService.set('clients', data); //store data in local storage
+                    console.log('got clients from json...');
+                    return data;
+                }).
+                error(function(data, status, headers, config) {
+                    console.error(status);
+                    deferred.reject(status);
+                });
+            }, Math.random()*2000); //simulating delay
+        }
         return deferred.promise;
     };
 

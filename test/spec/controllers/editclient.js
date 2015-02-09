@@ -3,7 +3,10 @@
 describe('Controller: EditclientCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('clientsApp'));
+  beforeEach(function() {
+    module('clientsApp');
+    module('clientsApp.Services.Clientsservice');
+  });
 
   var EditclientCtrl,
     scope;
@@ -14,9 +17,24 @@ describe('Controller: EditclientCtrl', function () {
     EditclientCtrl = $controller('EditclientCtrl', {
       $scope: scope
     });
+
+    $scope.clients = [{
+        "id": 1,
+        "name": "BK",
+        "description": "BNY Mellon",
+        "type": "TRADING",
+        "isDefault": "N"
+    },
+    {
+        "id": 2,
+        "name": "TWX",
+        "description": "Time Warner",
+        "type": "TRADING",
+        "isDefault": "N"
+    }];
   }));
 
   it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
+    expect(scope.awesomeThings).toBe(undefined);
   });
 });
