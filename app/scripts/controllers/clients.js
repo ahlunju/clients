@@ -13,7 +13,7 @@ angular.module('clientsApp')
     $scope.orderByField = 'id';
     $scope.currentPage = 1;
     $scope.itemPerPage = 10;
-
+    
     $scope.promise = Clientsservice.getClients();
     $scope.promise.then(function(payload) {
       $rootScope.clients = payload;
@@ -42,7 +42,7 @@ angular.module('clientsApp')
     $scope.clearLS = function() {
       Clientsservice.clearLocalStorage();
     };
-    
+
     $scope.filteredKeyword = '';
     $scope.search = {
       'id': '',
@@ -80,4 +80,72 @@ angular.module('clientsApp')
         }
       }
     }
+
+    // inline table edit
+    $scope.selectedClient = {
+      id : undefined,
+      name: '',
+      description: '',
+      type: undefined,
+      isDefault : undefined,
+    };
+
+    $scope.types = [{
+        value : 'TRADING'
+    }, {
+        value : 'IA'
+    }];
+
+    $scope.resetSelectedClient = function() {
+      $scope.selectedClient = {
+        id : undefined,
+        name: '',
+        description: '',
+        type: undefined,
+        isDefault : undefined,
+      };
+    };
+
+    $scope.clientTemplate = function(model) {
+      if($scope.selectedClient.id === model.id) {
+        return 'edit-client';
+      } else {
+        return 'display-client';
+      }
+    };
+
+    $scope.inlineEdit = function(model) {
+      $scope.selectedClient = angular.copy(model);
+      // mapping isDefault to checkbox
+      $scope.selectedClient.isDefault = $scope.selectedClient.isDefault === 'Y' ? true : false;
+    };
+
+    $scope.inlineUpdate = function() {
+      $scope.selectedClient.isDefault = $scope.selectedClient.isDefault ? 'Y' : 'N';
+      for (var i = 0; i < $rootScope.clients.length; i++) {
+          if ($rootScope.clients[i].id === $scope.selectedClient.id) {
+              $rootScope.clients[i] = angular.copy($scope.selectedClient);
+              break;
+          }
+      }
+
+      // update the filteredClients also because the table is bind to it, not the $rootScope.clients
+      $scope.filteredClients = $rootScope.clients.slice($scope.begin, $scope.end);
+      $scope.resetSelectedClient();
+      Clientsservice.set($rootScope.clients);
+      
+    };
+
+    $scope.inlineDelete = function() {
+      for (var i = 0; i< $rootScope.clients.length; i++) {
+        if ($rootScope.clients[i].id === $scope.selectedClient.id ) {
+          $rootScope.clients.splice(i, 1);
+          break;
+        }
+      }
+      // update the filteredClients also because the table is bind to it, not the $rootScope.clients
+      $scope.filteredClients = $rootScope.clients.slice($scope.begin, $scope.end);
+      Clientsservice.set($rootScope.clients);
+      $scope.resetSelectedClient();
+    };
   });

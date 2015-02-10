@@ -59,6 +59,10 @@ body {
   margin-top: 28px;
 }
 
+#table-btn-col {
+  width: 130px;
+  padding: 8px 0;
+}
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .container {

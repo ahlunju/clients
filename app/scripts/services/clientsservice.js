@@ -55,7 +55,6 @@ angular.module('clientsApp')
     };
 
     this.update = function(id, obj) {
-        
         var client = this.get(id);
         client.description = obj.description;
         client.type = obj.type;
