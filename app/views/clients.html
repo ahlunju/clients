@@ -32,7 +32,10 @@
 		<td>{{client.id}}</td>
 		<td><input class="form-control" ng-model="selectedClient.name"></input></td>
 		<td><input class="form-control" ng-model="selectedClient.description"></input></td>
-		<td><input class="form-control" ng-model="selectedClient.type"></input></td>
+		<td>
+			<select ng-click="$event.stopPropagation()" class="form-control"ng-model="selectedClient.type" ng-options="type.value for type in types" >
+			</select>
+		</td>
 		<td><div class="checkbox">
         <label>
         	<input type="checkbox" ng-model="selectedClient.isDefault" ng-click="$event.stopPropagation()"></input>
@@ -40,9 +43,9 @@
     </td>
 		<td>
 			<div class="btn-group">
-			<a class="btn btn-warning" ng-click='resetSelectedClient()'>C</a>
-			<a class="btn btn-danger" ng-click='inlineDelete()'>&#x2718;</a>
-			<a class="btn btn-primary" ng-click='inlineUpdate()'>&#x2714;</a>
+			<a class="btn btn-warning" ng-click='resetSelectedClient();$event.stopPropagation()'>C</a>
+			<a class="btn btn-danger" ng-click='inlineDelete();$event.stopPropagation()'>&#x2718;</a>
+			<a class="btn btn-primary" ng-click='inlineUpdate();$event.stopPropagation()'>&#x2714;</a>
 			</div>
 		</td>
 </script>

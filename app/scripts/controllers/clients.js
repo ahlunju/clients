@@ -117,11 +117,19 @@ angular.module('clientsApp')
     $scope.inlineEdit = function(model) {
       $scope.selectedClient = angular.copy(model);
       // mapping isDefault to checkbox
+      for (var i = 0; i < $scope.types.length; i++) {
+        if ($scope.types[i].value === $scope.selectedClient.type) {
+          $scope.selectedClient.type = $scope.types[i];
+          break;
+        }
+      }
       $scope.selectedClient.isDefault = $scope.selectedClient.isDefault === 'Y' ? true : false;
     };
 
     $scope.inlineUpdate = function() {
       $scope.selectedClient.isDefault = $scope.selectedClient.isDefault ? 'Y' : 'N';
+      
+      $scope.selectedClient.type = $scope.selectedClient.type.value;
       for (var i = 0; i < $rootScope.clients.length; i++) {
           if ($rootScope.clients[i].id === $scope.selectedClient.id) {
               $rootScope.clients[i] = angular.copy($scope.selectedClient);
