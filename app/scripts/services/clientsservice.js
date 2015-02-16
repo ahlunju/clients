@@ -8,30 +8,50 @@
  * Service in the clientsApp.
  */
 angular.module('clientsApp')
-  .service('Clientsservice', function ($q, $http, $rootScope, localStorageService, $location, $timeout) {
+  .service('Clientsservice', function ($q, $http, $rootScope, localStorageService, $location, $timeout, $firebase) {
     // AngularJS will instantiate a singleton by calling "new" on this function
-
-    this.getClients = function() {
+    
+    this.getClients = function(source) {
         var deferred = $q.defer();
+        var self = this;
+        if (source === 'firebase') {
+            var resource = new Firebase("https://clientsapp.firebaseio.com");
+            var clients = $firebase(resource).$asArray();
 
-        if(localStorageService.get('clients')) {
-            deferred.resolve(localStorageService.get('clients'));
-            console.log('got clients from localstorage...');
+            //Returns a promise which is resolved when the initial server data has been downloaded.
+            clients.$loaded()
+                .then(function(data) {
+                    deferred.resolve(data);
+                    console.log('got clients from firebase...');
+                })
+                .catch(function(error) {
+                    
+                    console.error("Error:", error);
+                    // something went wrong... get client from local file/localstorage
+                    self.getClients();
+                });
 
         } else {
-            $timeout(function() {
-                $http.get('/data/clients.json').success( function(data, status, headers, config) {
-                    deferred.resolve(data);
-                    localStorageService.set('clients', data); //store data in local storage
-                    console.log('got clients from json...');
-                    return data;
-                }).
-                error(function(data, status, headers, config) {
-                    console.error(status);
-                    deferred.reject(status);
-                });
-            }, Math.random()*2000); //simulating delay
+            if(localStorageService.get('clients')) {
+                deferred.resolve(localStorageService.get('clients'));
+                console.log('got clients from localstorage...');
+
+            } else {
+                $timeout(function() {
+                    $http.get('/data/clients.json').success( function(data, status, headers, config) {
+                        deferred.resolve(data);
+                        localStorageService.set('clients', data); //store data in local storage
+                        console.log('got clients from json...');
+                        return data;
+                    }).
+                    error(function(data, status, headers, config) {
+                        console.error(status);
+                        deferred.reject(status);
+                    });
+                }, Math.random()*2000); //simulating delay
+            }
         }
+        
         return deferred.promise;
     };
 

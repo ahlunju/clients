@@ -14,8 +14,9 @@ angular.module('clientsApp')
     $scope.currentPage = 1;
     $scope.itemPerPage = 10;
     
-    $scope.promise = Clientsservice.getClients();
+    $scope.promise = Clientsservice.getClients('firebase');
     $scope.promise.then(function(payload) {
+      console.log(payload);
       $rootScope.clients = payload;
       $scope.totalItems = $rootScope.clients.length;
       $scope.numPage = Math.ceil($rootScope.clients.length / $scope.itemPerPage);
