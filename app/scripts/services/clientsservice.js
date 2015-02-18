@@ -10,7 +10,6 @@
 angular.module('clientsApp')
   .service('Clientsservice', function ($q, $http, $rootScope, localStorageService, $location, $timeout) {
     // AngularJS will instantiate a singleton by calling "new" on this function
-
     this.getClients = function() {
         var deferred = $q.defer();
 

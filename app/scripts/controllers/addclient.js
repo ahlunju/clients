@@ -30,7 +30,7 @@ angular.module('clientsApp')
         $scope.client.type = $scope.selectedType.value;
         
         $rootScope.clients.push($scope.client);
-        Clientsservice.set($rootScope.clients);
+        // Clientsservice.set($rootScope.clients);
         $location.path('#/');
     };
   });

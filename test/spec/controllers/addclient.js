@@ -39,23 +39,23 @@ describe('Controller: AddclientCtrl', function () {
 
     it('should redirect back to main route after save', function() {
       inject(function($route) {
-        scope.clients = [{
-          'id': 3,
-          'name': 'BKX',
-          'description': 'BK Mellon',
-          'type': 'TRADING',
-          'isDefault': 'N'
-          },
-          {
-          'id': 4,
-          'name': 'TWXX',
-          'description': 'Timex Warner',
-          'type': 'TRADING',
-          'isDefault': 'N'
-        }];
+        // scope.clients = [{
+        //   'id': 3,
+        //   'name': 'BKX',
+        //   'description': 'BK Mellon',
+        //   'type': 'TRADING',
+        //   'isDefault': 'N'
+        //   },
+        //   {
+        //   'id': 4,
+        //   'name': 'TWXX',
+        //   'description': 'Timex Warner',
+        //   'type': 'TRADING',
+        //   'isDefault': 'N'
+        // }];
         scope.save();
-        // expect($route.routes['/'].controller).toBe('ClientsCtrl');
-        // expect($route.routes['/'].templateUrl).toBe('views/clients.html');
+        expect($route.routes['/'].controller).toBe('ClientsCtrl');
+        expect($route.routes['/'].templateUrl).toBe('views/clients.html');
       });
 
     })
